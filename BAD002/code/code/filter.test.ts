@@ -1,4 +1,4 @@
-import filter from "../code/filter";
+import filter from "./filter";
 
 it("Testing filter", () => {
   const mockPredicate = jest.fn((x) => x % 2 == 0);
