@@ -19,7 +19,3 @@ export function fibonacci(num: number): number {
 
   return fibonacci(num - 1) + fibonacci(num - 2);
 }
-
-// export class Factorial {
-//   num: number;
-// }
