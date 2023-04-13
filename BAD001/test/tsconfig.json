@@ -16,9 +16,9 @@
         "noUnusedLocals": true,
         "outDir": "built",
     },
-    "include": [
-        "**/*"
-    ],
+    // "include": [
+    //     "**/*"
+    // ],
     "exclude": [
         "node_modules",
         "build",
