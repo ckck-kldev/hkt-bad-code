@@ -1,4 +1,4 @@
-import sum from "./sum";
+import sum from "../code/sum";
 import { expect, test } from "@jest/globals";
 
 test("adds 1 +2 equals to 3", () => {

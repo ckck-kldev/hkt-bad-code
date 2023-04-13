@@ -1,4 +1,4 @@
-import divide from "./divide";
+import divide from "../code/divide";
 import { expect, test } from "@jest/globals";
 
 // test("divide function", () => {

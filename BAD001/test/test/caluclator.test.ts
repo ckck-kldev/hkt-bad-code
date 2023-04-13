@@ -1,4 +1,4 @@
-import { Calculator } from "./calculator";
+import { Calculator } from "../code/calculator";
 import { expect, test, beforeEach, beforeAll, describe } from "@jest/globals";
 // import * as jest from "@jest/globals";
 // But need the type "jest.{function name}" to use the jest functions
