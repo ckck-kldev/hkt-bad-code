@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import formidable from "formidable";
-import { logger } from "../logger";
+// import { logger } from "../logger";
 import { Memo } from "../models";
 import { MemoService } from "../services/MemoService";
 import { form, parse } from "../util";
@@ -15,13 +15,21 @@ export class MemoController {
       const memoList: Memo[] = result.rows;
       res.json(memoList);
     } catch (e) {
-      logger.error(e);
+      console.error(e);
       res.status(500).json({ msg: "[MEM001]: Failed to get Memos" });
     }
   };
 
   postMemos = async (req: Request, res: Response) => {
-    const [fields, files] = await parse(form, req);
+    const form = new formidable.IncomingForm();
+    const { fields, files } = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        resolve({ fields, files });
+      });
+    });
+    // const [fields, files] = await parse(form, req);
+    // form.parse(req, function (err, fields, files) {});
     await this.memoService.addMemo(
       fields.text + "",
       (files.image as formidable.File)?.newFilename
