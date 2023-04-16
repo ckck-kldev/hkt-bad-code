@@ -60,7 +60,7 @@ async function searchWithKnex(
     query = query.where("product.type", "=", input.product_type);
   }
   if (input.product_title) {
-    query = query.where("product.type", "=", input.product_title);
+    query = query.where("product.name", "=", input.product_title);
   }
   if (input.price_range) {
     query = query
@@ -84,8 +84,8 @@ async function searchWithKnex(
 searchWithKnex(
   knex,
   {
-    // product_type: "food",
-    product_title: "Cat Can 123",
+    product_type: "cat_food",
+    product_title: "Cat Can 101",
   },
   ["id", "name", "price"]
 );

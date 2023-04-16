@@ -1,0 +1,14 @@
+product
+-------
+id
+type_id fk >-0 product_type.id
+name varchar(30)
+price real
+
+
+product_type
+----
+id
+name varchar(30)
+
+
