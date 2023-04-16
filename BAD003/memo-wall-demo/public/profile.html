@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+    </nav>
+    <h1>User Profile</h1>
+    <div class="profile"></div>
+    <script>
+      let profile = document.querySelector('.profile')
+      async function loadProfile() {
+        let params = new URLSearchParams(location.search)
+        let id = params.get('id')
+        let res = await fetch(`/users/${id}/profile`)
+        let json = await res.json()
+        profile.textContent = JSON.stringify(json)
+      }
+      loadProfile()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memo Wall</title>
+    <style>
+      img {
+        max-width: 100%;
+        max-height: 80vh;
+      }
+
+      #loginForm,
+      #profileForm {
+        display: none;
+      }
+
+      [data-role='guest'] #loginForm {
+        display: inline;
+      }
+
+      [data-role='user'] #profileForm {
+        display: initial;
+      }
+      .memo {
+        border-top: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="loginForm" action="/login/password" method="post">
+      <label>username/email: <input type="text" name="login_id" /></label>
+      <label>password: <input type="password" name="password" /></label>
+      <input type="submit" value="Login" />
+      <p>Or, <a href="/connect/google">login with Google</a></p>
+    </form>
+
+    <form id="profileForm" action="/logout" method="post">
+      <p>Welcome back, <span class="user-name"></span></p>
+      <img class="avatar" />
+      <input type="submit" value="Logout" />
+    </form>
+
+    <template>
+      <div class="memo">
+        <a class="nickname" href="/profile.html?id=1">alice</a>
+        <div class="content">hello world</div>
+        <img class="image" />
+      </div>
+    </template>
+
+    <div class="memo-list"></div>
+
+    <script src="/alert.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let template = document.querySelector('template')
+      let memoList = document.querySelector('.memo-list')
+      let memoTemplate = template.content.querySelector('.memo')
+
+      let socket = io.connect()
+
+      socket.on('new-memo', memo => {
+        showNewMemo(memo)
+      })
+
+      function showNewMemo(memo) {
+        let node = memoTemplate.cloneNode(true)
+        node.querySelector('.content').textContent = memo.content
+        let img = node.querySelector('.image')
+        if (memo.image) {
+          img.src = '/uploads/memo-images/' + memo.image
+        } else {
+          img.remove()
+        }
+        let a = node.querySelector('.nickname')
+        a.textContent = memo.nickname
+        a.href = '/profile.html?id=' + memo.user_id
+        memoList.appendChild(node)
+      }
+
+      async function loadMemos() {
+        let res = await fetch('/memos')
+        let json = await res.json()
+        if (json.error) {
+          showError('Failed to load memo list', json.error)
+          return
+        }
+        for (let memo of json.memos) {
+          showNewMemo(memo)
+        }
+      }
+      loadMemos()
+
+      async function loadRole() {
+        let res = await fetch('/role')
+        let json = await res.json()
+        if (!json.user) {
+          document.body.dataset.role = 'guest'
+          return
+        }
+        profileForm.querySelector('.user-name').textContent = json.user.name
+        profileForm.querySelector('.avatar').src =
+          json.user.avatar || '/logo.png'
+        document.body.dataset.role = 'user'
+      }
+      loadRole()
+    </script>
+  </body>
+</html>
