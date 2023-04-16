@@ -72,6 +72,8 @@ async function searchWithKnex(
 
   let rows = await query;
   console.log("rows: ", rows);
+
+  knex.destroy();
 }
 
 // searchWithSQL(null as any, {
