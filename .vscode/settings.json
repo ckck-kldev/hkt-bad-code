@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "localhost",
+            "database": "memo-wall-demo",
+            "username": "memo-wall-demo",
+            "password": "memo-wall-demo"
+        }
+    ]
+}

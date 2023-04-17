@@ -1,0 +1,16 @@
+user
+----
+id fk
+username varchar(30) unique not null
+password_hash varchar(60) not null
+nickname varchar(30) not null
+avatar varchar(30) 
+email varchar(30) not null
+
+
+memo
+----
+id fk
+content varchar(255) not null
+user_id integer >-0 user.id not null
+image 
