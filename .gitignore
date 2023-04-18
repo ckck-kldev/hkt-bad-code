@@ -1,5 +1,6 @@
 #python
 .pyenv
+.venv
 
 #vscode
 .vs_code/
