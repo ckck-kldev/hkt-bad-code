@@ -1,9 +1,10 @@
 #python
 .pyenv
 .venv
+metal_env/
 
 #vscode
-.vs_code/
+.vscode/
 
 ##.DS_Store
 .DS_Store
